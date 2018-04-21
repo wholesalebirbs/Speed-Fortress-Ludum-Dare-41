@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : PoolableObject
+{
 
     private Transform target;
 
-    public void Seek(Transform_target)
+    public void Seek(Transform _target)
     {
         target = _target;
     }

@@ -52,7 +52,7 @@ public class Turret : MonoBehaviour {
             return;
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation =Quaternion.Lerp(partToRotate, lookRotation,Time.deltaTime*turnspeed).eulerAngles;
+        Vector3 rotation =Quaternion.Lerp(partToRotate.rotation, lookRotation,Time.deltaTime*turnspeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.z, 0f);
 		
         if(fireCountdown<=0f)
@@ -71,6 +71,6 @@ public class Turret : MonoBehaviour {
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Transform.position,range)
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
