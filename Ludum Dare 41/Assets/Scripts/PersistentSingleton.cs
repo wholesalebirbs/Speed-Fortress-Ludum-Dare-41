@@ -17,21 +17,34 @@ public class PersistentSingleton<T> : MonoBehaviour where T : Component
                 _instance = FindObjectOfType<T>();
                 if (_instance == null)
                 {
-                    GameObject obj
+                    GameObject obj = new GameObject();
+
+                    _instance = obj.AddComponent<T>();
                 }
             }
+            return _instance;
         }
     }
 
-    // Use this for initialization
-    void Start ()
+    private void Awake()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        if (_instance == null)
+        {
+
+            _instance = this as T;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+            if (this != _instance)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }
