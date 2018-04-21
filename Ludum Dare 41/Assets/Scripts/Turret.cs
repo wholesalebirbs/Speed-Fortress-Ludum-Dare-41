@@ -4,7 +4,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour {
     private Transform target;
     [Header("Attributes")]
-    public float fireRate = 2f;
+    public float fireRate = 1f;
     private float fireCountdown = 0f;
     public float range = 15f;
     [Header("Unity set up fields")]
@@ -14,6 +14,7 @@ public class Turret : MonoBehaviour {
     public Transform partToRotate;
 
     public GameObject bulletPrefab;
+    public float shootingForce=15;
     public Transform firePoint;
     
 	// Use this for initialization
@@ -64,8 +65,10 @@ public class Turret : MonoBehaviour {
 	}
     void Shoot()
     {
-        GameObject bulletGO=(GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
+        GameObject bulletGo=ObjectPooler.Instance.GetPooledGameObject();
+        Bullet bullet = bulletGo.GetComponent<Bullet>();
+        Rigidbody bulletRB = bulletGo.GetComponent<Rigidbody>();
+        bulletRB.velocity= transform.TransformDirection(Vector3.forward * shootingForce);
     }
 
     private void OnDrawGizmosSelected()
