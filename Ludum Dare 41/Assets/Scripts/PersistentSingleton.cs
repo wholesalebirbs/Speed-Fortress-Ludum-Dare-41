@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class PersistentSingleton<T> : MonoBehaviour where T : Component
 {
-    //protected static T _instance;
-    //protected bool _enabled;
+    protected static T _instance;
+    protected bool _enabled;
 
 
-    //public static T Instance
-    //{
-    //    get
-    //    {
-    //        if (_instance == null)
-    //        {
-    //            _instance = FindObjectOfType<T>();
-    //            if (_instance == null)
-    //            {
-    //                GameObject obj
-    //            }
-    //        }
-    //    }
-    //}
+    public static T Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<T>();
+                if (_instance == null)
+                {
+                    GameObject obj
+                }
+            }
+        }
+    }
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 		
 	}
