@@ -15,10 +15,18 @@ public class GameManager : MonoBehaviour
 
     void SpawnPlayers()
     {
+
+        if (spawnLocation == null)
+        {
+            Debug.Log("Spawn Location is null");
+            return;
+        }
+
         for (int i = 0; i < numberOfPlayers; i++)
         {
             GameObject go = Instantiate(playerPrefab, spawnLocation.position, Quaternion.identity);
-           // players.Add(go.GetComponent<)
+            players.Add(go.GetComponent<Player>());
         }
+
     }
 }
