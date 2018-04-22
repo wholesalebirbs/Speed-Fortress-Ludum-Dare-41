@@ -20,8 +20,8 @@ public class Player : MonoBehaviour {
     public float originalSpeed;
 
     [SerializeField]
-    private float totalHealth = 100;
-	private float currentHealth;
+    public float totalHealth = 100;
+	public float currentHealth;
 
     public UnityEngine.Sprite carImage;
 	public PlayerNumber pNumber;
