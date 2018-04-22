@@ -33,7 +33,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832029778216292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -59,7 +59,7 @@ MonoBehaviour:
     canExpand: 1
     objectPool: []
     waitingPool: {fileID: 0}
-    name: Bullet
+    name: bullet
   - type: 2
     gameObjectToPool: {fileID: 1627324347333192, guid: 00dbd15f2eccede4391cbba897d80659,
       type: 2}
@@ -67,4 +67,20 @@ MonoBehaviour:
     canExpand: 1
     objectPool: []
     waitingPool: {fileID: 0}
-    name: Turret
+    name: turret
+  - type: 3
+    gameObjectToPool: {fileID: 1557532790791614, guid: 6b49806bed1357b45a432f99cc40f873,
+      type: 2}
+    poolSize: 20
+    canExpand: 1
+    objectPool: []
+    waitingPool: {fileID: 0}
+    name: turret
+  - type: 4
+    gameObjectToPool: {fileID: 1922257163541804, guid: 854af0ab7d2916f499ff56f226df19cd,
+      type: 2}
+    poolSize: 10
+    canExpand: 1
+    objectPool: []
+    waitingPool: {fileID: 0}
+    name: turret

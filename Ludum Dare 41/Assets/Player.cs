@@ -171,13 +171,14 @@ public class Player : MonoBehaviour {
     private void Die()
     {
 
-        //Do DIe stuff here!
+        GameEventHandler.CallOnPlayerDeath(this);
     }
 
 
-    public void Initialize(bool active, Sprite vehicleSprite)
+    public void Initialize(Vector3 position, Sprite vehicleSprite)
     {
-
+        currentHealth = totalHealth;
+        transform.position = position;
     }
 }
 

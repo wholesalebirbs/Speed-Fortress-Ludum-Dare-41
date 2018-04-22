@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickup : PoolableObject {
+public class Pickup : PoolableObject
+{
+    public override void Destroy()
+    {
+        GameEventHandler.CallOnPickupDestroyed(this);
+        base.Destroy();
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void Initialize(Vector3 position)
+    {
+        transform.position = position;
+        GetComponent<Collider2D>().enabled = true;
+        gameObject.SetActive(true);
+    }
 }
