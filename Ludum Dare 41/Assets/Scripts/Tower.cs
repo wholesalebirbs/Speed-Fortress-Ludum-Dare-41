@@ -17,11 +17,20 @@ public class Tower : MonoBehaviour {
     private float towerCurrentHealth = 100;
     
     public float lapCompleteHealthBoost = 5;
+    public Sprite towerAlive;
+    public Sprite towerDead;
+    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer towerSprite;
+
+    public float turnSpeed;
+    public Transform partToRotate;
+
     public int id;
 
     private void Start()
     {
-        GetComponent<CircleCollider2D>().radius = range;
+       GetComponent<CircleCollider2D>().radius = range;
+        towerSprite = transform.Find("Tower Sprite").gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Use this for initialization
@@ -30,7 +39,7 @@ public class Tower : MonoBehaviour {
 	void Update () {
         if (target == null)
             return;
-        Vector3 dir = target.position - transform.position;
+        Vector2 dir = target.position - transform.position;
         dir.Normalize();
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         //Quaternion lookRotation = Quaternion.LookRotation(dir);
@@ -48,8 +57,9 @@ public class Tower : MonoBehaviour {
     {
         GameObject MissileGo = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.Missile);
         Missile Missile = MissileGo.GetComponent<Missile>();
-        Rigidbody2D bulletRB = MissileGo.GetComponent<Rigidbody2D>();
-        bulletRB.velocity = transform.TransformDirection(Vector3.forward * shootingForce);
+
+        Rigidbody2D missileRB = MissileGo.GetComponent<Rigidbody2D>();
+        missileRB.velocity = partToRotate.transform.TransformDirection(Vector2.right * shootingForce);
     }
     private void OnDrawGizmos()
     {
@@ -88,8 +98,25 @@ public class Tower : MonoBehaviour {
         id = _id;
     }
 
+
     public void AddHealthLapComplete()
     {
         towerCurrentHealth = Mathf.Clamp(towerCurrentHealth + lapCompleteHealthBoost, 0, towerTotalHealth);
     }
+
+    public void TakeDamage(int damage)
+    {
+        towerCurrentHealth -= damage;
+
+        if (towerCurrentHealth <= 0)
+        {
+            towerCurrentHealth = 0;
+      //      die();
+        }
+    }
+    private void Die()
+    {
+        towerSprite.sprite = towerDead;
+    }
+
 }

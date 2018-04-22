@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
     public float totalHealth = 100;
 	public float currentHealth;
 
-    public UnityEngine.Sprite carImage;
+    public SpriteRenderer carImage;
 	public PlayerNumber pNumber;
 
 	public float pickupDragDistance;
@@ -194,5 +194,6 @@ public class Player : MonoBehaviour {
     {
         currentHealth = totalHealth;
         transform.position = position;
+        carImage.sprite = vehicleSprite;
     }
 }
