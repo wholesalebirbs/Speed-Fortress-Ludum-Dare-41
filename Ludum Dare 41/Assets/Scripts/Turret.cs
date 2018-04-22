@@ -14,10 +14,10 @@ public class Turret : PoolableObject {
     public Transform partToRotate;
 
     public GameObject bulletPrefab;
-    public float shootingForce= .5f;
+    public float shootingForce= 100f;
     public Transform firePoint;
 
-    public int id;
+    PlayerNumber id;
 	// Use this for initialization
 	protected override void OnEnable ()
     {
@@ -26,29 +26,6 @@ public class Turret : PoolableObject {
 		
 	}
 
-   // void UpdateTarget()
-   // {
-    //    GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-    //    float shortestDistance = Mathf.Infinity;
-   //     GameObject nearestEnemy = null;
-    //    foreach(GameObject enemy in enemies)
-    //    {
-      //      float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-      //      if(distanceToEnemy<shortestDistance)
-     //       {
-    //            shortestDistance = distanceToEnemy;
-    //            nearestEnemy = enemy;
-    //        }
-   //     }
-  //      if (nearestEnemy != null &&shortestDistance<=range)
-  //      {
-  //          target = nearestEnemy.transform;
-   //     }
-   //     else
-   //     {
-    //        target = null;
-     //   }
-  //  }
 	
 	// Update is called once per frame
 	void Update () {
@@ -73,8 +50,12 @@ public class Turret : PoolableObject {
     {
         GameObject bulletGo = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.Bullet);
         Bullet bullet = bulletGo.GetComponent<Bullet>();
+        bullet.Initialize(firePoint.position, partToRotate.rotation, id);
         Rigidbody2D bulletRB = bulletGo.GetComponent<Rigidbody2D>();
-        bulletRB.velocity= transform.TransformDirection(Vector3.forward * shootingForce);
+        bulletRB.velocity = partToRotate.TransformDirection(transform.right * shootingForce);
+        //bulletGo.transform.forward = transform.TransformDirection(transform.right * shootingForce);
+        //bulletRB.AddForce(transform.TransformDirection(transform.forward * shootingForce));
+
     }
 
     private void OnDrawGizmos()
@@ -85,13 +66,18 @@ public class Turret : PoolableObject {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        CheckForTarget(collision);
+    }
+
+    private void CheckForTarget(Collider2D collision)
+    {
         Player p = collision.GetComponent<Player>();
-        if(p==null)
+        if (p == null)
         {
             return;
         }
 
-        if(p.playerId==id)
+        if (p.pNumber == id)
         {
             return;
         }
@@ -99,20 +85,35 @@ public class Turret : PoolableObject {
         target = p.gameObject.transform;
 
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(target.gameObject==collision.gameObject)
+        Debug.Log("OnTriggerExit2D called on" + gameObject.name);
+
+        if (target != null)
         {
-            target = null;
+            if (collision.gameObject == target.gameObject)
+            {
+                target = null;
+            }
         }
-        Physics2D.OverlapCircle(transform.position, range);
+
+
+        //if (Physics2D.OverlapCircle(transform.position, range) != null)
+        //{
+        //    CheckForTarget(collision);
+        //}
+        
     }
 
-    public void Initialize(Vector3 position, int _id)
+    public void Initialize(Vector3 position, PlayerNumber _id)
     {
         transform.position = position;
+        id = _id;
         gameObject.SetActive(true);
 
         id = _id;
+
+        UIEventHandler.CallTurretSpawned(this);
     }
 }

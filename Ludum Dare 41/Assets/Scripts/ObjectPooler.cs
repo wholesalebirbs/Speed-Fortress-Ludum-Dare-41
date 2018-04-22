@@ -8,6 +8,7 @@ public enum PooledObjectType
     Bullet,
     Missile,
     Turret,
+    TimerUI,
     Pickup
 }
 

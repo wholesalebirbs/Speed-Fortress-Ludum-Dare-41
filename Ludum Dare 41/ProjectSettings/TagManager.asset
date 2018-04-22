@@ -6,6 +6,7 @@ TagManager:
   tags:
   - offRoad
   - offMap
+  - pickup
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Projectiles
   - 
   - 
   - 

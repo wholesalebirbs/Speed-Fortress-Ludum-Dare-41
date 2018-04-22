@@ -62,7 +62,7 @@ public class Tower : MonoBehaviour {
             return;
         }
 
-        if (p.playerId == id)
+        if ((int)p.pNumber == id)
         {
             return;
         }
