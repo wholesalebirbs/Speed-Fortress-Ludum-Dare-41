@@ -10,6 +10,9 @@ public static class GameEventHandler
     public delegate void PlayerEventHandler(Player player);
     public static event PlayerEventHandler OnPlayerDeath;
 
+    public delegate void TowerEventHandler(Tower tower);
+    public static event TowerEventHandler OnTowerDeath;
+
     public static void CallOnPickupDestroyed(Pickup pickup)
     {
         if (OnPickupDestroyed != null)
