@@ -18,8 +18,17 @@ public class Turret : PoolableObject {
     public Transform firePoint;
 
     PlayerNumber id;
-	// Use this for initialization
-	protected override void OnEnable ()
+
+    AudioClip shootingSFX;
+
+
+    private void Start()
+    {
+        shootingSFX = Resources.Load("Audio/turret shooting") as AudioClip;
+    }
+
+    // Use this for initialization
+    protected override void OnEnable ()
     {
         base.OnEnable();
         GetComponent<CircleCollider2D>().radius = range;
@@ -56,6 +65,7 @@ public class Turret : PoolableObject {
         //bulletGo.transform.forward = transform.TransformDirection(transform.right * shootingForce);
         //bulletRB.AddForce(transform.TransformDirection(transform.forward * shootingForce));
 
+        AudioManager.Instance.PlaySound(shootingSFX, transform.position);
     }
 
     private void OnDrawGizmos()

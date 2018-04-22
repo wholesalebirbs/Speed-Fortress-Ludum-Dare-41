@@ -54,6 +54,10 @@ public class AudioManager : PersistentSingleton<AudioManager>
         audioSource.volume = sfxVolume;
         audioSource.Play();
         Destroy(tempAudio, audio.length);
+
+        //audioSource.loop = true;
+        
+
         return audioSource;
     }
 }
