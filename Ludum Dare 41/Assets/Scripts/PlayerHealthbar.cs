@@ -14,12 +14,22 @@ public class PlayerHealthbar : MonoBehaviour
 	void Start ()
     {
         target = GameObject.Find("Player " + number.ToString());
-        player = target.GetComponent<Player>();
+        
  	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (target == null)
+        {
+            target = GameObject.Find("Player " + number.ToString());
+        }
+        if (target == null)
+        {
+            return;
+        }
+        player = target.GetComponent<Player>();
+
         Vector3 screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
         transform.position = screenPos;
 

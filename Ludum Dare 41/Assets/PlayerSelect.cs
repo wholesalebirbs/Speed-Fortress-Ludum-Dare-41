@@ -88,8 +88,9 @@ public class PlayerSelect : MonoBehaviour
     private void Ready()
     {
         readyText.SetActive(true);
-        GameEventHandler.CallPlayerReady(this);
+        
         state = SelectState.Ready;
+        GameEventHandler.CallPlayerReady(this);
     }
 
     public void InGame()

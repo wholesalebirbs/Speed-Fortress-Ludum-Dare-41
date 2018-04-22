@@ -5,10 +5,12 @@ using UnityEngine;
 public class GameSetup : MonoBehaviour
 {
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         GameManager.Instance.numberOfPlayers = 4;
         GameManager.Instance.SpawnPlayers();
 	}
+
+    
 
 }

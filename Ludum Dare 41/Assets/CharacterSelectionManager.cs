@@ -18,7 +18,7 @@ public class CharacterSelectionManager : Singleton<CharacterSelectionManager>
 
     public float timeToSwitchScene;
 
-    bool countingDown = false;
+    public bool countingDown = false;
     float countDownTimer = 3;
 
     protected override void Awake()
@@ -60,6 +60,8 @@ public class CharacterSelectionManager : Singleton<CharacterSelectionManager>
             }
         }
 
+        countingDown = true;
+
         
     }
 
@@ -73,7 +75,8 @@ public class CharacterSelectionManager : Singleton<CharacterSelectionManager>
                 GameManager.Instance.InitializePlayers(playersInGame);
                 SceneManager.LoadScene("GAME");
             }
+
+            Debug.Log(countDownTimer);
         }
     }
-
 }
