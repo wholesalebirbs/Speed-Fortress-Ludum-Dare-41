@@ -1,0 +1,272 @@
+fileFormatVersion: 2
+guid: 3b619bb74e23d384eb45a39d484dd6c6
+timeCreated: 1524434448
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: start5_0
+    21300002: start5_1
+    21300004: start5_2
+    21300006: start5_3
+    21300008: start5_4
+    21300010: start5_5
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: start5_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 636
+        width: 263
+        height: 348
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -117.5, y: 174}
+        - {x: -131.5, y: 130}
+        - {x: -131.5, y: -120}
+        - {x: -95.5, y: -173}
+        - {x: -87.5, y: -174}
+        - {x: 90.5, y: -174}
+        - {x: 131.5, y: -142}
+        - {x: 131.5, y: 159}
+        - {x: 87.5, y: 174}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: start5_1
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 643
+        width: 255
+        height: 339
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 127.5, y: -13.5}
+        - {x: 127.5, y: 122.5}
+        - {x: 103.5, y: 164.5}
+        - {x: 74.5, y: 169.5}
+        - {x: -78.5, y: 169.5}
+        - {x: -127.5, y: 137.5}
+        - {x: -127.5, y: -169.5}
+        - {x: 119.5, y: -169.5}
+        - {x: 127.5, y: -103.5}
+        - {x: 127.5, y: -94.5}
+        - {x: 115.5, y: -85.5}
+      - - {x: 1.5, y: 77.5}
+        - {x: -5.5, y: 82.5}
+        - {x: -5.5, y: 66.5}
+        - {x: -8.5, y: 63.5}
+        - {x: -10.5, y: 49.5}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: start5_2
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 643
+        width: 197
+        height: 334
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6.5, y: 167}
+        - {x: -97.5, y: 129}
+        - {x: -98.5, y: 124}
+        - {x: -98.5, y: 55}
+        - {x: -91.5, y: 52}
+        - {x: -82.5, y: 50}
+        - {x: -31.5, y: -167}
+        - {x: 98.5, y: -167}
+        - {x: 98.5, y: 167}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: start5_3
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 104
+        width: 404
+        height: 444
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -175, y: 224}
+        - {x: -203, y: 220}
+        - {x: -203, y: -176}
+        - {x: -174, y: -195}
+        - {x: -128, y: -224}
+        - {x: 173, y: -224}
+        - {x: 203, y: -220}
+        - {x: 203, y: 160}
+        - {x: 155, y: 224}
+      - - {x: -2, y: -117}
+        - {x: -6, y: -102}
+        - {x: -7, y: -101}
+        - {x: -8, y: -63}
+        - {x: -9, y: -64}
+        - {x: -6, y: -67}
+        - {x: -2, y: -67}
+        - {x: 2, y: -117}
+        - {x: -1, y: -119}
+        - {x: 1, y: -119}
+      - - {x: 12, y: 34}
+        - {x: 14, y: 36}
+        - {x: 18, y: 33}
+        - {x: 23, y: 32}
+        - {x: 185, y: 33}
+        - {x: -4, y: 34}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: start5_4
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 101
+        width: 405
+        height: 448
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -130.5, y: 224}
+        - {x: -202.5, y: 168}
+        - {x: -202.5, y: -179}
+        - {x: -111.5, y: -224}
+        - {x: 103.5, y: -224}
+        - {x: 144.5, y: -218}
+        - {x: 202.5, y: -187}
+        - {x: 202.5, y: 163}
+        - {x: 187.5, y: 224}
+      - - {x: -4.5, y: -117}
+        - {x: -4.5, y: 111}
+        - {x: 4.5, y: 111}
+        - {x: 3.5, y: -107}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: start5_5
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 112
+        width: 204
+        height: 432
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -102, y: 216}
+        - {x: -102, y: -123}
+        - {x: -90, y: -216}
+        - {x: 101, y: -216}
+        - {x: 102, y: -201}
+        - {x: 102, y: 212}
+        - {x: 101, y: 216}
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
