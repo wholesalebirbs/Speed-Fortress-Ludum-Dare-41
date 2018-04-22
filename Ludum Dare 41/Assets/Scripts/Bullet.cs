@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : PoolableObject
+{
 
     private Transform target;
 
@@ -16,7 +17,5 @@ public class Bullet : MonoBehaviour {
         target = _target;
     }
 	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

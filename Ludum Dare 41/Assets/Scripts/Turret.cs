@@ -108,11 +108,12 @@ public class Turret : PoolableObject {
         Physics2D.OverlapCircle(transform.position, range);
     }
 
-    public void Initialize(Vector3 position)
+    public void Initialize(Vector3 position, int _id)
     {
         transform.position = position;
         gameObject.SetActive(true);
 
 
+        id = _id;
     }
 }
