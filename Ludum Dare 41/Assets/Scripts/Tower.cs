@@ -13,6 +13,7 @@ public class Tower : MonoBehaviour {
     public GameObject bulletPrefab;
     public float shootingForce = .5f;
     public Transform firePoint;
+    private float towerHealth;
 
     public int id;
 
@@ -43,8 +44,8 @@ public class Tower : MonoBehaviour {
     }
     void Shoot()
     {
-        GameObject MissileGo = ObjectPooler.Instance.GetPooledGameObject();
-        Missile Missile = MissileGo.GetComponent<Bullet>();
+        GameObject MissileGo = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.Missile);
+        Missile Missile = MissileGo.GetComponent<Missile>();
         Rigidbody2D bulletRB = MissileGo.GetComponent<Rigidbody2D>();
         bulletRB.velocity = transform.TransformDirection(Vector3.forward * shootingForce);
     }

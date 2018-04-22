@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour {
 
-	public float ACCELERATION;
+    private bool playerOffRoad;
+    public float ACCELERATION;
 	public float MAXSPEED;
 	public float ROTATION;
-	private float health = 100;
+    public float originalSpeed;
+	private float playerHealth = 100;
 	public UnityEngine.Sprite carImage;
 	public float playerId;
+
 	public float pickupDragDistance;
 
+    private bool isHitBullet;
+    private bool isHitMissile;
+    private bool playerOffMap;
+
+
 	private float speed = 0;
+    private float offTrackSpeed;
 	private Rigidbody2D rb;
 	private GameObject pickup;
 	private GameObject turret;
@@ -25,7 +35,36 @@ public class Player : MonoBehaviour {
 		turret = (GameObject)Resources.Load("Prefab/Turret", typeof(GameObject));
 	}
 
-	void FixedUpdate()
+    //Checks to see if the player is on the road
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "offRoad")
+        {
+            playerOffRoad = true;
+        }
+        if (col.tag == "pickup")
+        {
+            if (pickup != null) return;
+            pickup = col.gameObject;
+        }
+    }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "offRoad")
+        {
+            playerOffRoad = false;
+        }
+    }
+    //checks to see if the player is in the playable area
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "offMap")
+        {
+           playerOffMap = true;
+        }
+    }
+
+    void FixedUpdate()
     {
         //Store the current horizontal input in the float moveHorizontal.
         float moveHorizontal = Mathf.Round(-Input.GetAxis ("Horizontal"));
@@ -42,7 +81,9 @@ public class Player : MonoBehaviour {
 
         //Store the current vertical input in the float moveVertical.
         float moveVertical = Mathf.Round(-Input.GetAxis ("Vertical"));
+        Debug.Log(moveVertical * ROTATION);
 		rb.rotation += moveVertical * ROTATION;
+
 	
 		rb.velocity = new Vector2 (transform.up.x, transform.up.y).normalized * speed;
 
@@ -57,12 +98,25 @@ public class Player : MonoBehaviour {
 			Destroy(pickup);
 			pickup = null;
 		}
-    }
+        if (playerOffMap == true)
+        {
+            rb.velocity = new Vector2(0, 0);
+            speed = speed / -2;
+            rb.angularVelocity = 0;
+            playerOffMap = false;
+        }
+        else rb.velocity = new Vector2(transform.up.x, transform.up.y).normalized * (playerOffRoad == true ? speed * 0.5f : speed);
 
-	void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "pickup") {
-			if (pickup != null) return;
-			pickup = other.gameObject;
-		}
+        if (isHitBullet == true)
+        {
+            playerHealth = playerHealth - 10;
+            isHitBullet = false;
+        }
+        if (isHitMissile == true)
+        {
+            playerHealth = playerHealth - 25;
+            isHitMissile = false;
+        }
     }
 }
+
