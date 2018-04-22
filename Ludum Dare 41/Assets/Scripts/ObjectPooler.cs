@@ -2,61 +2,95 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum PooledObjectType
+{
+    Bullet,
+    Missile,
+    Turret,
+    Pickup
+}
+
 public class ObjectPooler : Singleton<ObjectPooler>
 {
-    public GameObject GameObjectToPool;
-    public int poolSize = 20;
-    public bool poolCanExpand = true;
+    [System.Serializable]
+    public class Pool
+    {
+        public PooledObjectType type;
 
-    private GameObject waitingPool;
+        public GameObject gameObjectToPool;
+        public int poolSize;
+        public bool canExpand;
 
-    private List<GameObject> pooledGameObjects;
+
+        [HideInInspector]
+        public List<GameObject> objectPool;
+        [HideInInspector]
+        public GameObject waitingPool;
+        [HideInInspector]
+        public string name;
+
+    }
+
+    public List<Pool> pools;
+
+    private Dictionary<PooledObjectType, Pool> poolDictionary = new Dictionary<PooledObjectType, Pool>();
 
     protected override void Awake()
     {
         base.Awake();
-        FillObjectPool();
+        FillObjectPools();
     }
 
-    private void FillObjectPool()
+    private void FillObjectPools()
     {
-        waitingPool = new GameObject("Object Pooler" + this.name);
-        pooledGameObjects = new List<GameObject>();
-
-        for (int i = 0; i < poolSize; i++)
+        foreach (Pool p in pools)
         {
-            AddObjectToPool();
+            p.name = p.type.ToString();
+            p.waitingPool = new GameObject(p.name + " Object Pooler");
+            p.objectPool = new List<GameObject>();
+
+            for (int i = 0; i < p.poolSize; i++)
+            {
+                AddObjectToPool(p);
+            }
+            poolDictionary.Add(p.type, p);
         }
     }
 
-    private GameObject AddObjectToPool()
+    private GameObject AddObjectToPool(Pool p)
     {
-        if (GameObjectToPool == null)
+        if (p.gameObjectToPool == null)
         {
             return null;
         }
 
-        GameObject newGameObject = Instantiate(GameObjectToPool);
+        GameObject newGameObject = Instantiate(p.gameObjectToPool);
         newGameObject.gameObject.SetActive(false);
-        newGameObject.transform.SetParent(waitingPool.transform);
-        newGameObject.name = GameObjectToPool.name + pooledGameObjects.Count;
-        pooledGameObjects.Add(newGameObject);
+        newGameObject.transform.SetParent(p.waitingPool.transform);
+        newGameObject.name = p.gameObjectToPool.name + p.objectPool.Count;
+        p.objectPool.Add(newGameObject);
         return newGameObject;
     }
 
-
-    public GameObject GetPooledGameObject()
+    public GameObject GetPooledGameObject(PooledObjectType _type)
     {
-        for (int i = 0; i < pooledGameObjects.Count; i++)
+        Pool tempPool;
+        if (!poolDictionary.TryGetValue(_type, out tempPool))
         {
-            if (!pooledGameObjects[i].gameObject.activeInHierarchy)
+            return null;
+        }
+
+        for (int i = 0; i < tempPool.objectPool.Count; i++)
+        {
+            if (!tempPool.objectPool[i].gameObject.activeInHierarchy)
             {
-                return pooledGameObjects[i];
+                return tempPool.objectPool[i];
             }
         }
-        if (poolCanExpand)
+        if (tempPool.canExpand)
         {
-            return AddObjectToPool();
+            return AddObjectToPool(tempPool);
         }
 
         return null;

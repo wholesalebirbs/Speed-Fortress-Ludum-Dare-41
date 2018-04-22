@@ -71,7 +71,7 @@ public class Turret : PoolableObject {
 	}
     void Shoot()
     {
-        GameObject bulletGo=ObjectPooler.Instance.GetPooledGameObject();
+        GameObject bulletGo = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.Bullet);
         Bullet bullet = bulletGo.GetComponent<Bullet>();
         Rigidbody2D bulletRB = bulletGo.GetComponent<Rigidbody2D>();
         bulletRB.velocity= transform.TransformDirection(Vector3.forward * shootingForce);

@@ -356,6 +356,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114398301307537038, guid: d689e5699d6ae81498ceb57c18167de1,
+        type: 2}
+      propertyPath: pools.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4869031015497468, guid: d689e5699d6ae81498ceb57c18167de1, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -387,6 +392,42 @@ Prefab:
     - target: {fileID: 4869031015497468, guid: d689e5699d6ae81498ceb57c18167de1, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832029778216292, guid: d689e5699d6ae81498ceb57c18167de1, type: 2}
+      propertyPath: m_Name
+      value: Object Pooler
+      objectReference: {fileID: 0}
+    - target: {fileID: 114398301307537038, guid: d689e5699d6ae81498ceb57c18167de1,
+        type: 2}
+      propertyPath: pools.Array.data[0].gameObjectToPool
+      value: 
+      objectReference: {fileID: 1958968863530804, guid: 6d54c6a897611394099e67b40b2b0ef6,
+        type: 2}
+    - target: {fileID: 114398301307537038, guid: d689e5699d6ae81498ceb57c18167de1,
+        type: 2}
+      propertyPath: pools.Array.data[1].gameObjectToPool
+      value: 
+      objectReference: {fileID: 1627324347333192, guid: 00dbd15f2eccede4391cbba897d80659,
+        type: 2}
+    - target: {fileID: 114398301307537038, guid: d689e5699d6ae81498ceb57c18167de1,
+        type: 2}
+      propertyPath: pools.Array.data[1].poolSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114398301307537038, guid: d689e5699d6ae81498ceb57c18167de1,
+        type: 2}
+      propertyPath: pools.Array.data[0].poolSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114398301307537038, guid: d689e5699d6ae81498ceb57c18167de1,
+        type: 2}
+      propertyPath: pools.Array.data[0].name
+      value: bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 114398301307537038, guid: d689e5699d6ae81498ceb57c18167de1,
+        type: 2}
+      propertyPath: pools.Array.data[1].name
+      value: turret
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d689e5699d6ae81498ceb57c18167de1, type: 2}
@@ -473,8 +514,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2063895228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 396.5, y: 223, z: 0}
-  m_LocalScale: {x: 0.99125, y: 0.99125, z: 0.99125}
+  m_LocalPosition: {x: 242.5, y: 136.5, z: 0}
+  m_LocalScale: {x: 0.60625, y: 0.60625, z: 0.60625}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6

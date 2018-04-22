@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4869031015497468}
   - component: {fileID: 114398301307537038}
   m_Layer: 0
-  m_Name: Bullet Object Pooler
+  m_Name: Object Pooler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f41828c482bb1c449af8bf128e84813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameObjectToPool: {fileID: 1958968863530804, guid: 6d54c6a897611394099e67b40b2b0ef6,
-    type: 2}
-  poolSize: 20
-  poolCanExpand: 1
+  pools:
+  - type: 0
+    gameObjectToPool: {fileID: 1958968863530804, guid: 6d54c6a897611394099e67b40b2b0ef6,
+      type: 2}
+    poolSize: 20
+    canExpand: 1
+    objectPool: []
+    waitingPool: {fileID: 0}
+    name: Bullet
+  - type: 2
+    gameObjectToPool: {fileID: 1627324347333192, guid: 00dbd15f2eccede4391cbba897d80659,
+      type: 2}
+    poolSize: 20
+    canExpand: 1
+    objectPool: []
+    waitingPool: {fileID: 0}
+    name: Turret
