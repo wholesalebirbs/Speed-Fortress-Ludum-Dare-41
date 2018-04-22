@@ -13,8 +13,10 @@ public class Tower : MonoBehaviour {
     public GameObject bulletPrefab;
     public float shootingForce = .5f;
     public Transform firePoint;
-    private float towerHealth;
-
+    private float towerTotalHealth = 100;
+    private float towerCurrentHealth = 100;
+    
+    public float lapCompleteHealthBoost = 5;
     public int id;
 
     private void Start()
@@ -84,5 +86,10 @@ public class Tower : MonoBehaviour {
         gameObject.SetActive(true);
 
         id = _id;
+    }
+
+    public void AddHealthLapComplete()
+    {
+        towerCurrentHealth = Mathf.Clamp(towerCurrentHealth + lapCompleteHealthBoost, 0, towerTotalHealth);
     }
 }

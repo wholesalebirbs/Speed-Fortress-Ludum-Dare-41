@@ -10,7 +10,6 @@ public enum PlayerNumber
     Four,
 }
 
-
 public class Player : MonoBehaviour {
 
     private bool playerOffRoad;
@@ -18,6 +17,7 @@ public class Player : MonoBehaviour {
 	public float MAXSPEED;
 	public float ROTATION;
     public float originalSpeed;
+    public float lapCompletePlayerHealthIncrease;
 
     [SerializeField]
     public float totalHealth = 100;
@@ -35,11 +35,14 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private bool playerOffMap;
 
+    private bool passedCheckpoint1 = false;
+    private bool passedCheckpoint2 = false;
+    private bool passedCheckpoint3 = false;
+
 	private float speed = 0;
     private float offTrackSpeed;
 	private Rigidbody2D rb;
 	private GameObject pickup;
-	private GameObject turret;
 
 	// Use this for initialization
 	void Start ()
@@ -47,8 +50,6 @@ public class Player : MonoBehaviour {
         currentHealth = totalHealth;
 		rb = GetComponent<Rigidbody2D>();
 		var spriteRenderer = GetComponent<SpriteRenderer>();
-		//spriteRenderer.sprite = carImage;
-		turret = (GameObject)Resources.Load("Prefab/Turret", typeof(GameObject));
 	}
 
     //Checks to see if the player is on the road
@@ -64,6 +65,22 @@ public class Player : MonoBehaviour {
             pickup = col.gameObject;
 
             pickup.GetComponent<Collider2D>().enabled = false;
+        }
+
+        if (col.tag == "checkpoint0" && passedCheckpoint3){
+           passedCheckpoint1 = false;
+           passedCheckpoint2 = false;
+           passedCheckpoint3 = false;
+           GameObject.Find("Tower " + pNumber).GetComponent<Tower>().AddHealthLapComplete();
+        }
+        if (col.tag == "checkpoint1" && !passedCheckpoint1){
+            passedCheckpoint1 = true;
+        }
+        if (col.tag == "checkpoint2" && !passedCheckpoint2 && passedCheckpoint1){
+            passedCheckpoint2 = true;
+        }
+        if (col.tag == "checkpoint3" && !passedCheckpoint3 && passedCheckpoint2){
+            passedCheckpoint3 = true;
         }
     }
     void OnTriggerExit2D(Collider2D col)
@@ -119,8 +136,6 @@ public class Player : MonoBehaviour {
                 t.GetComponent<Turret>().Initialize(pickup.transform.position, pNumber);
                 //Instantiate(turret, pickup.transform.position, Quaternion.identity);
                 //Destroy(pickup);
-
-
 
                 if (pickup != null)
                 {
@@ -181,4 +196,3 @@ public class Player : MonoBehaviour {
         transform.position = position;
     }
 }
-
