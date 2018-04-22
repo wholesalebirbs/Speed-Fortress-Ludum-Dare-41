@@ -6,7 +6,7 @@ public class DelayedStart : MonoBehaviour {
     public GameObject countDown;
 	// Use this for initialization
 	void Start () {
-        StartCoroutine("StartDelay");
+        StartCoroutine("startDelay");
 	}
 	
 	// Update is called once per frame
