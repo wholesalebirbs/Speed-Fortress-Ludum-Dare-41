@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : MonoBehaviour {
+public class Missile : PoolableObject
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void Initialize()
+    {
+        gameObject.SetActive(true);
+    }
 }

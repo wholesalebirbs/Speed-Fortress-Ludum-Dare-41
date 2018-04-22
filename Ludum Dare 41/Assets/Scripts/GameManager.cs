@@ -9,27 +9,35 @@ public class GameManager : PersistentSingleton<GameManager>
     public int numberOfPlayers;
 
     public List<Player> players =  new List<Player>();
+    public List<PlayerSelect> playersToSpawn = new List<PlayerSelect>();
     public Transform[] SpawnPoints =  new Transform[4];
 
     private void Awake()
     {
+
         GameEventHandler.OnPlayerDeath += OnPlayerDeath;
     }
 
     public void SpawnPlayers()
     {
-        playerPrefab = Resources.Load("Prefab/Player") as GameObject;
-
-        if (playerPrefab == null)
+        for (int i = 0; i < playersToSpawn.Count; i++)
         {
-            Debug.Log("Player Prefab is null!");
-            return;
+            GameObject player = Instantiate(playerPrefab);
+            Player p = player.GetComponent<Player>();
+            p.pNumber = playersToSpawn[i].playerNumber;
+            p.Initialize(SpawnPoints[(int)p.pNumber].position, playersToSpawn[i].sprites.GetComponent<Texture2D>());
         }
     }
 
     private void OnPlayerDeath(Player player)
     {
         player.Initialize(SpawnPoints[(int)player.pNumber].position, null);
+    }
+
+
+    public void InitializePlayers(List<PlayerSelect> p)
+    {
+        playersToSpawn = new List<PlayerSelect>(p);
     }
 
 

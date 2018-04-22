@@ -190,7 +190,7 @@ public class Player : MonoBehaviour {
     }
 
 
-    public void Initialize(Vector3 position, Sprite vehicleSprite)
+    public void Initialize(Vector3 position, Texture2D vehicleSprite)
     {
         currentHealth = totalHealth;
         transform.position = position;

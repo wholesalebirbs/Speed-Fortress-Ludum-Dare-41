@@ -7,8 +7,6 @@ public class PlayerHealthbar : MonoBehaviour
 {
     GameObject target;
     public Image bar;
-
-
     Player player;
 
     public PlayerNumber number;
