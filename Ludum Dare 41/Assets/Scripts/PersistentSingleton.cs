@@ -26,7 +26,7 @@ public class PersistentSingleton<T> : MonoBehaviour where T : Component
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (!Application.isPlaying)
         {

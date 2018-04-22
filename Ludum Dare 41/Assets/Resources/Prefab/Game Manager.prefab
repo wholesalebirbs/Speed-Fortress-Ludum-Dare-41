@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8df56face6e3824185ff4bccfa7dbb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitializationTime: 0
   playerPrefab: {fileID: 1131786260717690, guid: 52058735df98be642b06171caa1b8ed6,
     type: 2}
   numberOfPlayers: 0
@@ -59,7 +60,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playersToSpawn: []
   SpawnPoints:
   - {fileID: 0}
   - {fileID: 0}

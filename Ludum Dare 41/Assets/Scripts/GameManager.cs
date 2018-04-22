@@ -20,9 +20,9 @@ public class GameManager : PersistentSingleton<GameManager>
     public static List<PlayerInfo> playersToSpawn = new List<PlayerInfo>();
     public Transform[] SpawnPoints =  new Transform[4];
 
-    private void Awake()
+    protected override void Awake()
     {
-        
+        base.Awake();   
         GameEventHandler.OnPlayerDeath += OnPlayerDeath;
     }
 
@@ -35,14 +35,14 @@ public class GameManager : PersistentSingleton<GameManager>
             p.pNumber = playersToSpawn[i].number;
             player.name = "Player " + p.pNumber;
 
-            SpawnPoints[i] = GameObject.Find("Player " + p.pNumber + " Start").transform;
+            SpawnPoints[(int)p.pNumber] = GameObject.Find("Player " + p.pNumber + " Start").transform;
             p.Initialize(SpawnPoints[(int)p.pNumber].position, playersToSpawn[i].sprite);
         }
     }
 
     private void OnPlayerDeath(Player player)
     {
-        player.Initialize(SpawnPoints[(int)player.pNumber].position, null);
+        player.Initialize(SpawnPoints[(int)player.pNumber].position, player.carImage.sprite);
     }
 
 
