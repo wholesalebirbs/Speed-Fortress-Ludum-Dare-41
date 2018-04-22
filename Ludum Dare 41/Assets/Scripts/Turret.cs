@@ -113,7 +113,6 @@ public class Turret : PoolableObject {
         transform.position = position;
         gameObject.SetActive(true);
 
-
         id = _id;
     }
 }
