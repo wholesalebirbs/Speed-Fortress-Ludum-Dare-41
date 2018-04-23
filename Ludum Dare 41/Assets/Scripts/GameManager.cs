@@ -18,6 +18,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public List<Player> players =  new List<Player>();
     public static List<PlayerInfo> playersToSpawn = new List<PlayerInfo>();
+    public List<GameObject> towersInGame = new List<GameObject>();
     public Transform[] SpawnPoints =  new Transform[4];
 
     protected override void Awake()
@@ -34,12 +35,18 @@ public class GameManager : PersistentSingleton<GameManager>
             SpawnPoints[i] = GameObject.Find("Player " + spawnIndex + " Start").transform;
         }
 
+        TowerManager tm = FindObjectOfType<TowerManager>();
+
         for (int i = 0; i < playersToSpawn.Count; i++)
         {
-            GameObject player = Instantiate(playerPrefab);
-            Player p = player.GetComponent<Player>();
+            GameObject playerGO = Instantiate(playerPrefab);
+            Player p = playerGO.GetComponent<Player>();
             p._id = playersToSpawn[i].number;
-            player.name = "Player " + p._id;
+            playerGO.name = "Player " + p._id;
+
+            GameObject tempTower = tm.towers[(int)p._id].gameObject;
+            tempTower.SetActive(true);
+            towersInGame.Add(tempTower);
 
             p.Initialize(SpawnPoints[(int)p._id].position, playersToSpawn[i].sprite);
         }
