@@ -16,7 +16,7 @@ public class DelayedStart : MonoBehaviour {
     IEnumerator startDelay()
     {
         Time.timeScale = 0;
-        float pauseTime=Time.realtimeSinceStartup + 8.2f;
+        float pauseTime=Time.realtimeSinceStartup + 5;
         while (Time.realtimeSinceStartup < pauseTime)
             yield return 0;
         countDown.gameObject.SetActive(false);

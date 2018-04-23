@@ -10,7 +10,7 @@ public enum PlayerNumber
     Four,
 }
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IHealthInterface {
 
     private bool playerOffRoad;
     public float ACCELERATION;
@@ -20,11 +20,35 @@ public class Player : MonoBehaviour {
     public float lapCompletePlayerHealthIncrease;
 
     [SerializeField]
-    public float totalHealth = 100;
-	public float currentHealth;
+    public float _totalHealth = 100;
+    public float TotalHealth
+    {
+        get
+        {
+            return _totalHealth;
+        }
+
+        set
+        {
+            _totalHealth = value;
+        }
+    }
+    public float _currentHealth;
+    public float CurrentHealth
+    {
+        get
+        {
+            return _currentHealth;
+        }
+
+        set
+        {
+            _currentHealth = value;
+        }
+    }
 
     public SpriteRenderer carImage;
-	public PlayerNumber pNumber;
+	public PlayerNumber _id;
 
 	public float pickupDragDistance;
 
@@ -44,10 +68,10 @@ public class Player : MonoBehaviour {
 	private Rigidbody2D rb;
 	private GameObject pickup;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        currentHealth = totalHealth;
+        _currentHealth = _totalHealth;
 		rb = GetComponent<Rigidbody2D>();
 		var spriteRenderer = GetComponent<SpriteRenderer>();
 	}
@@ -71,7 +95,7 @@ public class Player : MonoBehaviour {
            passedCheckpoint1 = false;
            passedCheckpoint2 = false;
            passedCheckpoint3 = false;
-           GameObject.Find("Tower " + pNumber).GetComponent<Tower>().AddHealthLapComplete();
+           GameObject.Find("Tower " + _id).GetComponent<Tower>().AddHealthLapComplete();
         }
         if (col.tag == "checkpoint1" && !passedCheckpoint1){
             passedCheckpoint1 = true;
@@ -102,7 +126,7 @@ public class Player : MonoBehaviour {
     void FixedUpdate()
     {
         //Store the current horizontal input in the float moveHorizontal.
-        float vertical = Mathf.Round(-Input.GetAxis (pNumber.ToString() + " Left Y Axis"));
+        float vertical = Mathf.Round(-Input.GetAxis (_id.ToString() + " Left Y Axis"));
 		if (vertical != 0) speed += vertical * ACCELERATION;
 		else {
 			if (speed > 0 && speed < ACCELERATION) speed = 0;
@@ -115,7 +139,7 @@ public class Player : MonoBehaviour {
 		if (speed < -MAXSPEED) speed = -MAXSPEED;
 
         //Store the current vertical input in the float moveVertical.
-        float horizontal = Mathf.Round(-Input.GetAxis (pNumber.ToString() + " Right X Axis"));
+        float horizontal = Mathf.Round(-Input.GetAxis (_id.ToString() + " Right X Axis"));
         //Debug.Log(horizontal * ROTATION);
 		rb.rotation += horizontal * ROTATION;
 
@@ -127,13 +151,13 @@ public class Player : MonoBehaviour {
 			pickup.transform.rotation = Quaternion.Euler(0, 0, rb.rotation);
 		}
 
-		if (Input.GetAxis(pNumber + " Right Trigger") > 0.5 && pickup != null)
+		if (Input.GetAxis(_id + " Right Trigger") > 0.5 && pickup != null)
         {
-            Debug.Log("Player " + pNumber + "Spawned a turret");
+            Debug.Log("Player " + _id + "Spawned a turret");
             GameObject t = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.Turret);
             if (t != null)
             {
-                t.GetComponent<Turret>().Initialize(pickup.transform.position, pNumber);
+                t.GetComponent<Turret>().Initialize(pickup.transform.position, _id);
                 //Instantiate(turret, pickup.transform.position, Quaternion.identity);
                 //Destroy(pickup);
 
@@ -146,7 +170,7 @@ public class Player : MonoBehaviour {
             }
             else
             {
-                Debug.Log("Something went wrong, Player " + pNumber.ToString() + "could not spawn turret");
+                Debug.Log("Something went wrong, Player " + _id.ToString() + "could not spawn turret");
             }
 
 		}
@@ -159,40 +183,33 @@ public class Player : MonoBehaviour {
         }
         else rb.velocity = new Vector2(transform.up.x, transform.up.y).normalized * (playerOffRoad == true ? speed * 0.5f : speed);
 
-        //if (isHitBullet == true)
-        //{
-        //    currentHealth = currentHealth - 10;
-        //    isHitBullet = false;
-        //}
-        //if (isHitMissile == true)
-        //{
-        //    currentHealth = currentHealth - 25;
-        //    isHitMissile = false;
-        //}
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, PlayerNumber number)
     {
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
+        if (_id == number)
         {
-            currentHealth = 0;
+            return;
+        }
+
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            _currentHealth = 0;
             Die();
         }
     }
 
     private void Die()
     {
-
         GameEventHandler.CallOnPlayerDeath(this);
     }
 
-
     public void Initialize(Vector3 position, Sprite vehicleSprite)
     {
-        currentHealth = totalHealth;
+        _currentHealth = _totalHealth;
         transform.position = position;
         carImage.sprite = vehicleSprite;
     }

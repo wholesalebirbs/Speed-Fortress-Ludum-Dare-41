@@ -9,7 +9,8 @@ public enum PooledObjectType
     Missile,
     Turret,
     TimerUI,
-    Pickup
+    Pickup,
+    Target
 }
 
 public class ObjectPooler : Singleton<ObjectPooler>

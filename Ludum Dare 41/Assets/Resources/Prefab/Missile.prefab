@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4639852783501126}
   - component: {fileID: 114185848428494958}
   - component: {fileID: 50113624145426036}
-  - component: {fileID: 58764176358871156}
-  m_Layer: 0
+  - component: {fileID: 61427846901778124}
+  m_Layer: 8
   m_Name: Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4897922684788308}
   - component: {fileID: 212481323789754064}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Missile Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,13 +65,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943161791511214}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.07747026, y: 0.07747026, z: 0.07747026}
   m_Children: []
   m_Father: {fileID: 4639852783501126}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
 --- !u!50 &50113624145426036
 Rigidbody2D:
   serializedVersion: 4
@@ -86,14 +86,14 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58764176358871156
-CircleCollider2D:
+--- !u!61 &61427846901778124
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -105,8 +105,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.19
+  m_Size: {x: 0.77, y: 0.17}
+  m_EdgeRadius: 0
 --- !u!114 &114185848428494958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,7 +128,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bccc1e83aaece4fb77278a7180cb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0
+  lifeTime: 10
+  _id: 0
+  damage: 10
+  _target: {x: 0, y: 0, z: 0}
+  _seekSpeed: 0
+  minDestroyDistance: 0.05
 --- !u!212 &212481323789754064
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -152,14 +167,14 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: a884d28430c800f419db7d3cee8623bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.23, y: 9.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4478978863428854}
   - component: {fileID: 212674475571583574}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Bullet Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 50114142371686080}
   - component: {fileID: 212842019082919868}
   - component: {fileID: 61085262382496964}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0
+  _id: 0
   damage: 10
 --- !u!212 &212674475571583574
 SpriteRenderer:

@@ -2,121 +2,108 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour {
-    private Transform target;
-    [Header("Attributes")]
-    public float fireRate = 1f;
-    private float fireCountdown = 0f;
-    public float range = 15f;
-    [Header("Unity set up fields")]
-    public string enemyTag = "Enemy";
-    public GameObject bulletPrefab;
-    public float shootingForce = .5f;
-    public Transform firePoint;
-    private float towerTotalHealth = 100;
-    private float towerCurrentHealth = 100;
-    
+public class Tower : ShootingObject, IHealthInterface
+{
+
     public float lapCompleteHealthBoost = 5;
+
+    [Header("Sprites")]
     public Sprite towerAlive;
     public Sprite towerDead;
     private SpriteRenderer spriteRenderer;
-    private SpriteRenderer towerSprite;
+    public SpriteRenderer towerSprite;
 
-    public float turnSpeed;
-    public Transform partToRotate;
+    private float _totalHealth = 100;
+    private float _currentHealth;
 
-    public int id;
+    public float TotalHealth
+    {
+        get
+        {
+            return _totalHealth;
+        }
+
+        set
+        {
+            _totalHealth = value;
+        }
+    }
+    public float CurrentHealth
+    {
+        get
+        {
+            return _currentHealth;
+        }
+
+        set
+        {
+            _currentHealth = value;
+        }
+    }
+
+    bool isAlive = true;
+
+    public override void Initialize(Vector3 position, PlayerNumber _id)
+    {
+        base.Initialize(position, _id);
+        _currentHealth = _totalHealth;
+    }
+
+    protected override void Update()
+    {
+        if (!isAlive)
+        {
+            return;
+        }
+        base.Update();
+        Debug.Log("CUrrent Health : " + CurrentHealth);
+    }
 
     private void Start()
     {
        GetComponent<CircleCollider2D>().radius = range;
-        towerSprite = transform.Find("Tower Sprite").gameObject.GetComponent<SpriteRenderer>();
+        _currentHealth = _totalHealth;
     }
 
-    // Use this for initialization
-	
-	// Update is called once per frame
-	void Update () {
-        if (target == null)
-            return;
-        Vector2 dir = target.position - transform.position;
-        dir.Normalize();
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //Quaternion lookRotation = Quaternion.LookRotation(dir);
-        //Vector3 rotation =Quaternion.Lerp(partToRotate.rotation, lookRotation,Time.deltaTime*turnspeed).eulerAngles;
-
-        if (fireCountdown <= 0f)
-        {
-            Shoot();
-            fireCountdown = 1f / fireRate;
-        }
-        fireCountdown -= Time.deltaTime;
-
-    }
-    void Shoot()
+    protected override void Shoot()
     {
-        GameObject MissileGo = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.Missile);
-        Missile Missile = MissileGo.GetComponent<Missile>();
+        GameObject missileGO = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.Missile);
+        Missile missile = missileGO.GetComponent<Missile>();
+        missile.Initialize(transform.position, partToRotate.rotation, _id, target.position);
+        Rigidbody2D missileRB = missileGO.GetComponent<Rigidbody2D>();
+        missileRB.velocity = partToRotate.TransformDirection(transform.right * fireForce);
 
-        Rigidbody2D missileRB = MissileGo.GetComponent<Rigidbody2D>();
-        missileRB.velocity = partToRotate.transform.TransformDirection(Vector2.right * shootingForce);
+        AudioManager.Instance.PlaySound(shootingSFX, transform.position);
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Player p = collision.GetComponent<Player>();
-        if (p == null)
-        {
-            return;
-        }
-
-        if ((int)p.pNumber == id)
-        {
-            return;
-        }
-
-        target = p.gameObject.transform;
-
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (target.gameObject == collision.gameObject)
-        {
-            target = null;
-        }
-        Physics2D.OverlapCircle(transform.position, range);
-    }
-    public void Initialize(Vector3 position, int _id)
-    {
-        transform.position = position;
-        gameObject.SetActive(true);
-
-        id = _id;
-    }
-
 
     public void AddHealthLapComplete()
     {
-        towerCurrentHealth = Mathf.Clamp(towerCurrentHealth + lapCompleteHealthBoost, 0, towerTotalHealth);
+        _currentHealth = Mathf.Clamp(_currentHealth + lapCompleteHealthBoost, 0, _totalHealth);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, PlayerNumber number)
     {
-        towerCurrentHealth -= damage;
-
-        if (towerCurrentHealth <= 0)
+        if (_id == number)
         {
-            towerCurrentHealth = 0;
-      //      die();
+            return;
+        }
+
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            _currentHealth = 0;
+            Die();
         }
     }
     private void Die()
     {
         towerSprite.sprite = towerDead;
-    }
+        BoxCollider2D bc = GetComponent<BoxCollider2D>();
+        bc.enabled = false;
+        CircleCollider2D cc = GetComponent<CircleCollider2D>();
+        cc.enabled = false;
 
+        isAlive = false;
+    }
 }

@@ -7,6 +7,10 @@ TagManager:
   - pickup
   - offRoad
   - offMap
+  - checkpoint2
+  - checkpoint0
+  - checkpoint1
+  - checkpoint3
   layers:
   - Default
   - TransparentFX
@@ -16,11 +20,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Missile
+  - Towers
+  - Projectiles
+  - OffLimits
+  - Turrets
   - 
   - 
   - 

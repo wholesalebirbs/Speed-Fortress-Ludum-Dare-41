@@ -28,21 +28,26 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void SpawnPlayers()
     {
+        for (int i = 0; i < SpawnPoints.Length; i++)
+        {
+            PlayerNumber spawnIndex = (PlayerNumber) i;
+            SpawnPoints[i] = GameObject.Find("Player " + spawnIndex + " Start").transform;
+        }
+
         for (int i = 0; i < playersToSpawn.Count; i++)
         {
             GameObject player = Instantiate(playerPrefab);
             Player p = player.GetComponent<Player>();
-            p.pNumber = playersToSpawn[i].number;
-            player.name = "Player " + p.pNumber;
+            p._id = playersToSpawn[i].number;
+            player.name = "Player " + p._id;
 
-            SpawnPoints[(int)p.pNumber] = GameObject.Find("Player " + p.pNumber + " Start").transform;
-            p.Initialize(SpawnPoints[(int)p.pNumber].position, playersToSpawn[i].sprite);
+            p.Initialize(SpawnPoints[(int)p._id].position, playersToSpawn[i].sprite);
         }
     }
 
     private void OnPlayerDeath(Player player)
     {
-        player.Initialize(SpawnPoints[(int)player.pNumber].position, player.carImage.sprite);
+        player.Initialize(SpawnPoints[(int)player._id].position, player.carImage.sprite);
     }
 
 

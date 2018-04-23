@@ -33,6 +33,6 @@ public class PlayerHealthbar : MonoBehaviour
         Vector3 screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
         transform.position = screenPos;
 
-        bar.fillAmount = player.currentHealth / player.totalHealth;
+        bar.fillAmount = player.CurrentHealth / player.TotalHealth;
     }
 }

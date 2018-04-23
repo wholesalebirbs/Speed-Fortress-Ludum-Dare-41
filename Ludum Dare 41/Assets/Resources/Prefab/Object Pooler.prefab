@@ -85,7 +85,16 @@ MonoBehaviour:
     waitingPool: {fileID: 0}
     name: turret
   - type: 1
-    gameObjectToPool: {fileID: 0}
+    gameObjectToPool: {fileID: 1400892681071036, guid: ca648bc518c2a824c83ef02904cbb794,
+      type: 2}
+    poolSize: 10
+    canExpand: 1
+    objectPool: []
+    waitingPool: {fileID: 0}
+    name: turret
+  - type: 5
+    gameObjectToPool: {fileID: 1843700944637948, guid: 3db25f59e3018c24ba7bc9603391bb4b,
+      type: 2}
     poolSize: 10
     canExpand: 1
     objectPool: []
