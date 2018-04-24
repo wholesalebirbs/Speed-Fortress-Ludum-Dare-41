@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : ShootingObject, IHealthInterface
+public class Tower : ShootingObject, IHealthInterface, ITarget
 {
 
     public float lapCompleteHealthBoost = 5;
@@ -13,7 +13,7 @@ public class Tower : ShootingObject, IHealthInterface
     private SpriteRenderer spriteRenderer;
     public SpriteRenderer towerSprite;
 
-    private float _totalHealth = 100;
+    private float _totalHealth = 200;
     private float _currentHealth;
 
     public float TotalHealth
@@ -41,13 +41,32 @@ public class Tower : ShootingObject, IHealthInterface
         }
     }
 
-    bool isAlive = true;
+    public Transform Position
+    {
+        get
+        {
+            return transform;
+        }
+
+    }
+
+    public PlayerNumber PlayerNUmber
+    {
+        get
+        {
+            return _id;
+        }
+
+    }
+    public bool isAlive = true;
+
 
     public override void Initialize(Vector3 position, PlayerNumber _id)
     {
         base.Initialize(position, _id);
         _currentHealth = _totalHealth;
     }
+
 
     protected override void Update()
     {
@@ -63,6 +82,7 @@ public class Tower : ShootingObject, IHealthInterface
     {
        GetComponent<CircleCollider2D>().radius = range;
         _currentHealth = _totalHealth;
+        GameEventHandler.OnLapComplete += OnLapComplete;
     }
 
     protected override void Shoot()
@@ -76,9 +96,16 @@ public class Tower : ShootingObject, IHealthInterface
         AudioManager.Instance.PlaySound(shootingSFX, transform.position);
     }
 
-    public void AddHealthLapComplete()
+    public void OnLapComplete(Player player)
     {
+        if (player._id != _id)
+        {
+            return;
+        }
+
         _currentHealth = Mathf.Clamp(_currentHealth + lapCompleteHealthBoost, 0, _totalHealth);
+
+
     }
 
     public void TakeDamage(int damage, PlayerNumber number)
@@ -99,11 +126,19 @@ public class Tower : ShootingObject, IHealthInterface
     private void Die()
     {
         towerSprite.sprite = towerDead;
+
+
+        isAlive = false;
+
+        GameEventHandler.CallOnTowerDeath(this);
+    }
+
+
+    public void DisableColliders()
+    {
         BoxCollider2D bc = GetComponent<BoxCollider2D>();
         bc.enabled = false;
         CircleCollider2D cc = GetComponent<CircleCollider2D>();
         cc.enabled = false;
-
-        isAlive = false;
     }
 }

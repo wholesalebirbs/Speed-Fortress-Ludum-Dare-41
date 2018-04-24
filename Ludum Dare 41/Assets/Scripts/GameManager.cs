@@ -25,10 +25,12 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         base.Awake();   
         GameEventHandler.OnPlayerDeath += OnPlayerDeath;
+        GameEventHandler.OnTowerDeath += OnTowerDeath;
     }
 
     public void SpawnPlayers()
     {
+        players = new List<Player>();
         for (int i = 0; i < SpawnPoints.Length; i++)
         {
             PlayerNumber spawnIndex = (PlayerNumber) i;
@@ -43,6 +45,8 @@ public class GameManager : PersistentSingleton<GameManager>
             Player p = playerGO.GetComponent<Player>();
             p._id = playersToSpawn[i].number;
             playerGO.name = "Player " + p._id;
+
+            players.Add(p);
 
             GameObject tempTower = tm.towers[(int)p._id].gameObject;
             tempTower.SetActive(true);
@@ -65,7 +69,7 @@ public class GameManager : PersistentSingleton<GameManager>
             PlayerInfo pi = new PlayerInfo
             {
                 number = ps.playerNumber,
-                sprite = ps.sprites.GetComponent<Image>().sprite
+                sprite = ps.carSprite.GetComponent<Image>().sprite
             };
 
 
@@ -75,9 +79,41 @@ public class GameManager : PersistentSingleton<GameManager>
 
     }
 
-    private void OnLevelWasLoaded(int level)
+    private void OnTowerDeath(Tower t)
     {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (t._id == players[i]._id)
+            {
+                players[i].gameObject.SetActive(false);
+                players.RemoveAt(i);
+            }
+        }
+
+        CheckWinCondition();
+
         
+    }
+
+    private void CheckWinCondition()
+    {
+        if (players.Count < 2)
+        {
+
+            EndGame();
+        }
+    }
+
+    private void EndGame()
+    {
+        for (int i = 0; i < towersInGame.Count; i++)
+        {
+            if (towersInGame[i].GetComponent<Tower>().isAlive)
+            {
+                towersInGame[i].GetComponent<Tower>().DisableColliders();
+            }
+        }
+        GameEventHandler.CallOnPlayerWin(players[0]);
     }
 
 

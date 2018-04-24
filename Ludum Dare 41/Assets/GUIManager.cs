@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GUIManager : MonoBehaviour
 {
+    public GameObject[] winImages;
+
 
 	// Use this for initialization
 	void Start ()
     {
-        UIEventHandler.OnTurretSpawned += SpawnTurretTimer;	
+        UIEventHandler.OnTurretSpawned += SpawnTurretTimer;
+        GameEventHandler.OnPlayerWin += OnPlayerWin;
 	}
 
 
@@ -17,5 +20,10 @@ public class GUIManager : MonoBehaviour
         GameObject t = ObjectPooler.Instance.GetPooledGameObject(PooledObjectType.TimerUI);
         t.GetComponent<TurretUITimer>().Initialize(GetComponent<Canvas>(), turret);
 
+    }
+
+    private void OnPlayerWin(Player player)
+    {
+        winImages[(int)player._id].SetActive(true);
     }
 }

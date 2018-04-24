@@ -9,9 +9,12 @@ public static class GameEventHandler
 
     public delegate void PlayerEventHandler(Player player);
     public static event PlayerEventHandler OnPlayerDeath;
+    public static event PlayerEventHandler OnLapComplete;
+    public static event PlayerEventHandler OnPlayerWin;
 
     public delegate void TowerEventHandler(Tower tower);
     public static event TowerEventHandler OnTowerDeath;
+
 
     public delegate void PlayerSelectEventHandler(PlayerSelect playerSelect);
     public static event PlayerSelectEventHandler OnPlayerEnterGame;
@@ -19,6 +22,22 @@ public static class GameEventHandler
 
     public static event PlayerSelectEventHandler OnPlayerReady;
     public static event PlayerSelectEventHandler OnPlayerUnReady;
+
+    public static void CallOnPlayerWin(Player player)
+    {
+        if (OnPlayerWin != null)
+        {
+            OnPlayerWin(player);
+        }
+    }
+
+    public static void CallOnLapComplete(Player player)
+    {
+        if (OnLapComplete != null)
+        {
+            OnLapComplete(player);
+        }
+    }
 
     public static void CallPlayerLeaveGame(PlayerSelect playerSelect)
     {
@@ -66,6 +85,14 @@ public static class GameEventHandler
         if (OnPlayerDeath != null)
         {
             OnPlayerDeath(player);
+        }
+    }
+
+    public static void CallOnTowerDeath(Tower tower)
+    {
+        if (OnTowerDeath != null)
+        {
+            OnTowerDeath(tower);
         }
     }
 }

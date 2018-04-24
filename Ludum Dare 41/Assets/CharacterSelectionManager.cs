@@ -79,4 +79,27 @@ public class CharacterSelectionManager : Singleton<CharacterSelectionManager>
             Debug.Log(countDownTimer);
         }
     }
+
+
+    public Sprite GetPlayerSprite(PlayerNumber id, int index)
+    {
+
+
+        for (int i = 0; i < playerSprites.Count; i++)
+        {
+            if (playerSprites[i].playerNumber == id)
+            {
+                if (index < 0)
+                {
+                    index *= -1;
+
+                }
+
+                int newIndex = index % playerSprites[i].sprites.Length;
+                Sprite s = playerSprites[i].sprites[newIndex];
+                return s;
+            }
+        }
+        return null;
+    }
 }

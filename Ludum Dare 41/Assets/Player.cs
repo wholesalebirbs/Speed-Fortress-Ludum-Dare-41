@@ -10,7 +10,7 @@ public enum PlayerNumber
     Four,
 }
 
-public class Player : MonoBehaviour, IHealthInterface {
+public class Player : MonoBehaviour, IHealthInterface, ITarget {
 
     private bool playerOffRoad;
     public float ACCELERATION;
@@ -47,6 +47,23 @@ public class Player : MonoBehaviour, IHealthInterface {
         }
     }
 
+    public Transform Position
+    {
+        get
+        {
+            return transform;
+        }
+
+    }
+
+    public PlayerNumber PlayerNUmber
+    {
+        get
+        {
+            return _id;
+        }
+
+    }
     public SpriteRenderer carImage;
 	public PlayerNumber _id;
 
@@ -95,7 +112,8 @@ public class Player : MonoBehaviour, IHealthInterface {
            passedCheckpoint1 = false;
            passedCheckpoint2 = false;
            passedCheckpoint3 = false;
-           GameObject.Find("Tower " + _id).GetComponent<Tower>().AddHealthLapComplete();
+           //GameObject.Find("Tower " + _id).GetComponent<Tower>().AddHealthLapComplete();
+           GameEventHandler.CallOnLapComplete(this);
         }
         if (col.tag == "checkpoint1" && !passedCheckpoint1){
             passedCheckpoint1 = true;

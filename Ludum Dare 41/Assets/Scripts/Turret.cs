@@ -1,8 +1,10 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Turret : ShootingObject
 {
+    public List<ITarget> possibleTargets = new List<ITarget>();
     // Use this for initialization
     protected override void OnEnable ()
     {
@@ -19,6 +21,7 @@ public class Turret : ShootingObject
     public override void Initialize(Vector3 position, PlayerNumber _id)
     {
         base.Initialize(position, _id);
+        possibleTargets = new List<ITarget>();
 
         UIEventHandler.CallTurretSpawned(this);
     }
@@ -35,43 +38,51 @@ public class Turret : ShootingObject
         AudioManager.Instance.PlaySound(shootingSFX, transform.position);
     }
 
+
     protected override void CheckForTarget(Collider2D collision)
     {
-        Player p = collision.GetComponent<Player>();
-        Tower t = collision.GetComponent<Tower>();
-
-        //check if they're both null
-
-        if (p == null && t == null)
-        {
-            return;
-        }
+        ITarget t = collision.GetComponent<ITarget>();
 
         //check if tower isn't null, tower will always get picked over other player
         if (t != null)
         {
-            if (t._id == _id)
+            if (t.PlayerNUmber == _id)
             {
                 return;
             }
             else
             {
-                target = t.transform;
+                possibleTargets.Add(t);
+                target = t.Position;
                 return;
             }
         }
 
-        if (p!= null)
+    }
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        ITarget t = collision.GetComponent<ITarget>();
+        if (t == null)
         {
-            if (p._id == _id)
+            return;
+        }
+        if (t.PlayerNUmber == _id)
+        {
+            return;
+        }
+
+        for (int i = 0; i < possibleTargets.Count; i++)
+        {
+            if (possibleTargets[i] == t)
             {
-                return;
+                possibleTargets.RemoveAt(i);
             }
-            else
-            {
-                target = p.transform;
-                return;
-            }
+        }
+
+        if (possibleTargets.Count > 0)
+        {
+            target = possibleTargets[0].Position;
         }
     }
 }

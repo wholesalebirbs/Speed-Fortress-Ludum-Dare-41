@@ -19,19 +19,26 @@ public class PlayerSelect : MonoBehaviour
 
     public SelectState state = SelectState.NotInGame;
 
-    public GameObject sprites;
+    public GameObject carSprite;
 
     public GameObject joinText;
     public GameObject readyText;
 
+    public CharacterSelectionManager csm;
 
+    public int spriteIndex = 0;
 
+    float axisWaitTime = .3f;
+    float axisWaitTimer = 0;
+
+    bool axisInUse = false;
 	// Use this for initialization
 	void Start ()
     {
         titleText.text = "Player " + playerNumber;
-        sprites.SetActive(false);
+        carSprite.SetActive(false);
         readyText.SetActive(false);
+        SwitchSprite(spriteIndex);
 	}
 	
 	// Update is called once per frame
@@ -59,6 +66,28 @@ public class PlayerSelect : MonoBehaviour
                 {
                     NotInGame();
                 }
+                if (Input.GetAxisRaw(playerNumber + " Left X Axis") == 1)
+                {
+                    if (axisWaitTimer >= axisWaitTime)
+                    {
+                        axisWaitTimer = 0;
+                        spriteIndex++;
+                        SwitchSprite(spriteIndex);
+                    }
+                }
+                else if(Input.GetAxisRaw(playerNumber + " Left X Axis") == -1)
+                {
+                    if (axisWaitTimer >= axisWaitTime)
+                    {
+                        axisWaitTimer = 0;
+                        spriteIndex++;
+                        SwitchSprite(spriteIndex);
+                    }
+                }
+
+                axisWaitTimer += Time.deltaTime;
+                
+
                 break;
             case SelectState.Ready:
                 if (Input.GetButtonDown(playerNumber + " B Button"))
@@ -74,12 +103,13 @@ public class PlayerSelect : MonoBehaviour
     private void UnReady()
     {
         readyText.SetActive(false);
+        carSprite.SetActive(true);
         state = SelectState.Selecting;
     }
 
     private void NotInGame()
     {
-        sprites.SetActive(false);
+        carSprite.SetActive(false);
         joinText.SetActive(true);
         state = SelectState.NotInGame;
         GameEventHandler.CallPlayerLeaveGame(this);
@@ -88,7 +118,7 @@ public class PlayerSelect : MonoBehaviour
     private void Ready()
     {
         readyText.SetActive(true);
-        
+        carSprite.SetActive(false);
         state = SelectState.Ready;
         GameEventHandler.CallPlayerReady(this);
     }
@@ -96,11 +126,22 @@ public class PlayerSelect : MonoBehaviour
     public void InGame()
     {
         GameEventHandler.CallPlayerEnterGame(this);
+        axisWaitTimer = 1;
         joinText.SetActive(false);
-        sprites.SetActive(true);
+        carSprite.SetActive(true);
         state = SelectState.Selecting;
     }
 
 
+    private void SwitchSprite(int index)
+    {
+        if (index < 0)
+        {
+            index = 4;
+            spriteIndex = index;
+        }
+
+        carSprite.GetComponent<Image>().sprite =  csm.GetPlayerSprite(playerNumber, index);
+    }
 
 }

@@ -76,7 +76,7 @@ public class ShootingObject : PoolableObject {
     {
         CheckForTarget(collision);
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (target != null)
         {
@@ -85,6 +85,7 @@ public class ShootingObject : PoolableObject {
                 target = null;
             }
         }
+
     }
 
 
